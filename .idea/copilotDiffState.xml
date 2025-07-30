@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/controller/LocationController.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/controller/LocationController.java" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/dto/LocationRequest.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/dto/LocationRequest.java" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/entity/Location.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/entity/Location.java" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/repository/LocationRepository.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/repository/LocationRepository.java" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/service/LocationService.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/locationapi/service/LocationService.java" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

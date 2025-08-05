@@ -139,20 +139,29 @@ public class LocationService {
     }
     
     public Map<String, String> addLocation(AddLocationRequest request) {
-        // navicode 중복 검사
-        boolean isDuplicate = locations.stream()
-            .anyMatch(loc -> loc.getNavicode().equals(request.getNavicode()));
+        final String navicode;
 
-        if (isDuplicate) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Location added fail");
-            response.put("success", "false");
-            return response;
+        // navicode가 입력되지 않은 경우 랜덤 생성
+        if (request.getNavicode() == null) {
+            navicode = generateUniqueNavicode();
+        } else {
+            // navicode가 입력된 경우 중복 검사
+            final String inputNavicode = request.getNavicode();
+            boolean isDuplicate = locations.stream()
+                .anyMatch(loc -> loc.getNavicode().equals(inputNavicode));
+
+            if (isDuplicate) {
+                Map<String, String> response = new HashMap<>();
+                response.put("message", "Location added fail");
+                response.put("success", "false");
+                return response;
+            }
+            navicode = inputNavicode;
         }
 
         Location newLocation = new Location(
             request.getName(),
-            request.getNavicode(),
+            navicode,
             request.getLatitude(),
             request.getLongitude(),
             request.getType()
@@ -164,9 +173,27 @@ public class LocationService {
         Map<String, String> response = new HashMap<>();
         response.put("message", "location added success");
         response.put("success", "true");
+        response.put("navicode", navicode);
         return response;
     }
     
+    private String generateUniqueNavicode() {
+        Random random = new Random();
+        String navicode;
+
+        do {
+            // 6자리 랜덤 숫자 생성 (100000 ~ 999999)
+            navicode = String.valueOf(100000 + random.nextInt(900000));
+        } while (isNavicodeExists(navicode));
+
+        return navicode;
+    }
+
+    private boolean isNavicodeExists(String navicode) {
+        return locations.stream()
+            .anyMatch(loc -> loc.getNavicode().equals(navicode));
+    }
+
     public double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         return FastMath.sqrt(FastMath.pow(lat1 - lat2, 2) + FastMath.pow(lon1 - lon2, 2));
     }

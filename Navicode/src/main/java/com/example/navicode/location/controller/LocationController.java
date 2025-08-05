@@ -94,8 +94,8 @@ public class LocationController {
     @PostMapping("/add_coord_location")
     public ResponseEntity<?> addCoordLocation(@RequestBody AddLocationRequest request) {
         try {
-            // Validate required fields
-            if (request.getName() == null || request.getNavicode() == null || 
+            // Validate required fields (navicode는 자동 생성되므로 검증에서 제외)
+            if (request.getName() == null || request.getName().trim().isEmpty() ||
                 request.getLatitude() == 0 || request.getLongitude() == 0) {
                 return ResponseEntity.badRequest().body(Map.of("error", "Required fields are missing"));
             }

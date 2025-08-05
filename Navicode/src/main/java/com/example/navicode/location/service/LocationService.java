@@ -139,6 +139,17 @@ public class LocationService {
     }
     
     public Map<String, String> addLocation(AddLocationRequest request) {
+        // navicode 중복 검사
+        boolean isDuplicate = locations.stream()
+            .anyMatch(loc -> loc.getNavicode().equals(request.getNavicode()));
+
+        if (isDuplicate) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Location added fail");
+            response.put("success", "false");
+            return response;
+        }
+
         Location newLocation = new Location(
             request.getName(),
             request.getNavicode(),
@@ -152,6 +163,7 @@ public class LocationService {
         
         Map<String, String> response = new HashMap<>();
         response.put("message", "location added success");
+        response.put("success", "true");
         return response;
     }
     

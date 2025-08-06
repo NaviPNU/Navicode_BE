@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "starbucks_locations")
+@Table(name = "locations")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StarbucksLocation {
+public class Location {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +32,10 @@ public class StarbucksLocation {
     
     @Column(name = "type", nullable = false)
     private Integer type; // 1: dynamic, 2: static
+    
+    @Column(name = "username")
+    private String username;
+    
+    @Column(name = "expire")
+    private LocalDate expire;
 } 

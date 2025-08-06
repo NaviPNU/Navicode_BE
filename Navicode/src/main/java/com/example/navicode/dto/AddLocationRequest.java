@@ -13,4 +13,5 @@ public class AddLocationRequest {
     private Double latitude;
     private Double longitude;
     private Integer type;
+    private String username;
 } 

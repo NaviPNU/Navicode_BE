@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()    // 인증 관련 API 허용
                         .requestMatchers("/api/location/**").permitAll()  // location 하위 모든 API 허용
                         .anyRequest().permitAll()  // 개발 편의를 위해 모든 요청 허용
+
                 );
 
         http.addFilterBefore(

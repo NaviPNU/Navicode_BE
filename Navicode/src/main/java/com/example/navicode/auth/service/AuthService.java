@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthService {
     @Autowired
@@ -20,8 +22,8 @@ public class AuthService {
     private JwtTokenProvider jwtTokenProvider;
 
     public LoginResponse login(String username, String password) {
-        User user = userRepository.findByUsername(username);
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if (userOpt.isPresent() && passwordEncoder.matches(password, userOpt.get().getPassword())) {
             String token = jwtTokenProvider.createToken(username);
             return new LoginResponse(true, token, "로그인 성공");
         }
@@ -29,7 +31,7 @@ public class AuthService {
     }
 
     public LoginResponse register(String username, String password) {
-        if (userRepository.findByUsername(username) != null) {
+        if (userRepository.existsByUsername(username)) {
             return new LoginResponse(false, null, "이미 존재하는 사용자입니다.");
         }
 

@@ -3,7 +3,7 @@ package com.example.navicode.controller;
 import com.example.navicode.dto.AddLocationRequest;
 import com.example.navicode.dto.LocationResponse;
 import com.example.navicode.dto.TypeResponse;
-import com.example.navicode.model.StarbucksLocation;
+import com.example.navicode.model.Location;
 import com.example.navicode.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,7 +66,7 @@ public class LocationController {
                 return ResponseEntity.badRequest().body(Map.of("error", "All fields are required"));
             }
             
-            StarbucksLocation savedLocation = locationService.addCoordLocation(request);
+            Location savedLocation = locationService.addCoordLocation(request);
             return ResponseEntity.ok(Map.of("message", "location added success"));
             
         } catch (Exception e) {

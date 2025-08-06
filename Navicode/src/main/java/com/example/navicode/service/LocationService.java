@@ -3,11 +3,12 @@ package com.example.navicode.service;
 import com.example.navicode.dto.AddLocationRequest;
 import com.example.navicode.dto.LocationResponse;
 import com.example.navicode.dto.TypeResponse;
-import com.example.navicode.model.StarbucksLocation;
-import com.example.navicode.repository.StarbucksLocationRepository;
+import com.example.navicode.model.Location;
+import com.example.navicode.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 public class LocationService {
     
     @Autowired
-    private StarbucksLocationRepository locationRepository;
+    private LocationRepository locationRepository;
     
     public TypeResponse getCoordType(String navicode) {
         if (navicode == null || !navicode.matches("\\d+")) {
@@ -31,7 +32,7 @@ public class LocationService {
     }
     
     public List<LocationResponse> getCoordDynamic(String navicode, Double latitude, Double longitude) {
-        List<StarbucksLocation> locations = locationRepository.findByNavicodeStartingWith(navicode);
+        List<Location> locations = locationRepository.findByNavicodeStartingWith(navicode);
         
         return locations.stream()
                 .map(location -> {
@@ -49,7 +50,7 @@ public class LocationService {
     }
     
     public LocationResponse getCoordStatic(String navicode) {
-        StarbucksLocation location = locationRepository.findByNavicode(navicode);
+        Location location = locationRepository.findByNavicode(navicode);
         if (location == null) {
             return null;
         }
@@ -60,14 +61,31 @@ public class LocationService {
                 location.getLongitude()
         );
     }
-    
-    public StarbucksLocation addCoordLocation(AddLocationRequest request) {
-        StarbucksLocation newLocation = new StarbucksLocation();
+
+    public Location addCoordLocation(AddLocationRequest request) {
+        Location newLocation = new Location();
         newLocation.setName(request.getName());
         newLocation.setNavicode(request.getNavicode());
         newLocation.setLatitude(request.getLatitude());
         newLocation.setLongitude(request.getLongitude());
         newLocation.setType(request.getType());
+        
+        // username과 expire 설정
+        if (request.getType() == 1) {
+            // type 1 (동적)은 무조건 admin
+            newLocation.setUsername("admin");
+            // admin은 1년 후 만료
+            newLocation.setExpire(LocalDate.now().plusYears(1));
+        } else if (request.getType() == 2) {
+            // type 2 (정적)는 사용자 이름으로 저장
+            newLocation.setUsername(request.getUsername() != null ? request.getUsername() : "unknown");
+            // admin이 포함된 사용자는 1년, 일반 사용자는 3일 후 만료
+            if (request.getUsername() != null && request.getUsername().contains("admin")) {
+                newLocation.setExpire(LocalDate.now().plusYears(1));
+            } else {
+                newLocation.setExpire(LocalDate.now().plusDays(3));
+            }
+        }
         
         return locationRepository.save(newLocation);
     }
@@ -77,15 +95,15 @@ public class LocationService {
     }
     
     private static class LocationWithDistance {
-        private final StarbucksLocation location;
+        private final Location location;
         private final double distance;
         
-        public LocationWithDistance(StarbucksLocation location, double distance) {
+        public LocationWithDistance(Location location, double distance) {
             this.location = location;
             this.distance = distance;
         }
         
-        public StarbucksLocation getLocation() {
+        public Location getLocation() {
             return location;
         }
         

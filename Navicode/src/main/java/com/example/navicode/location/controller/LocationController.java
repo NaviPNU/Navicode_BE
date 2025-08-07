@@ -88,7 +88,7 @@ public class LocationController {
     
     /**
      * 새로운 위치를 추가하는 API
-     * @param request : 추가할 위치 정보 (name, navicode, latitude, longitude, type)
+     * @param request : 추가할 위치 정보 (name, navicode, latitude, longitude, type, username)
      * return 추가 성공 메시지
      */
     @PostMapping("/add_coord_location")
@@ -98,6 +98,11 @@ public class LocationController {
             if (request.getName() == null || request.getName().trim().isEmpty() ||
                 request.getLatitude() == 0 || request.getLongitude() == 0) {
                 return ResponseEntity.badRequest().body(Map.of("error", "Required fields are missing"));
+            }
+            
+            // 정적 코드(type=2)인 경우 username 필수
+            if (request.getType() == 2 && (request.getUsername() == null || request.getUsername().trim().isEmpty())) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Username is required for static codes"));
             }
             
             Map<String, String> result = locationService.addLocation(request);

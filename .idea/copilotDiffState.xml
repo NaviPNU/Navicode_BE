@@ -10,15 +10,6 @@
             </PendingDiffInfo>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/Navicode/README.md">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/Navicode/README.md" />
-              <option name="originalContent" value="# Navicode Backend&#10;&#10;## 환경 설정&#10;&#10;이 프로젝트는 다양한 환경에서 쉽게 사용할 수 있도록 프로파일 기반 설정을 제공합니다.&#10;&#10;### 1. 로컬 개발 환경 (H2 인메모리 DB)&#10;```bash&#10;./gradlew bootRun --args='--spring.profiles.active=local'&#10;```&#10;또는 환경변수로:&#10;```bash&#10;export SPRING_PROFILES_ACTIVE=local&#10;./gradlew bootRun&#10;```&#10;&#10;### 2. 개발 서버 환경 (MySQL)&#10;```bash&#10;./gradlew bootRun --args='--spring.profiles.active=dev'&#10;```&#10;&#10;### 3. 공유용 환경 (환경변수 사용)&#10;```bash&#10;export SPRING_PROFILES_ACTIVE=shared&#10;export DB_URL=jdbc:mysql://your-db-host:3306/your-db-name&#10;export DB_USERNAME=your-username&#10;export DB_PASSWORD=your-password&#10;export DB_DRIVER=com.mysql.cj.jdbc.Driver&#10;export JPA_DDL_AUTO=update&#10;export JPA_DIALECT=org.hibernate.dialect.MySQLDialect&#10;export JWT_SECRET=your-secret-key&#10;./gradlew bootRun&#10;```&#10;&#10;## API 엔드포인트&#10;&#10;### 인증 API&#10;- POST `/api/auth/register` - 회원가입&#10;- POST `/api/auth/login` - 로그인&#10;&#10;" />
-              <option name="updatedContent" value="# Navicode Backend&#10;&#10;##  빠른 시작 (H2 사용)&#10;&#10;MySQL 설치 없이 바로 실행:&#10;```bash&#10;./gradlew bootRun&#10;```&#10;&#10;## 환경 설정&#10;&#10;### 1. 로컬 개발 (H2 인메모리 DB) - 기본값&#10;```bash&#10;./gradlew bootRun&#10;```&#10;&#10;### 2. MySQL 사용&#10;```bash&#10;./gradlew bootRun --args='--spring.profiles.active=dev'&#10;```&#10;&#10;## API 엔드포인트&#10;&#10;### 인증 API&#10;- POST `/api/auth/register` - 회원가입&#10;- POST `/api/auth/login` - 로그인" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/Navicode/src/main/java/com/example/navicode/auth/Main.java">
           <value>
             <PendingDiffInfo>

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class LocationService {
     
     private List<Location> locations = new ArrayList<>();
-    private static final String CSV_FILE_PATH = "starbucks.csv";
+    private static final String CSV_FILE_PATH = "navicodeDB.csv";
     private String csvFilePath = CSV_FILE_PATH;
     
     public LocationService() {
